@@ -17,7 +17,7 @@ function algorithm(nums: number[], target: number): number[] {
 function App() {
   const [arr, setArray] = useState<number[]>([0, 0]);
   const [target, setTarget] = useState<number>(0);
-  const [result, setResult] = useState<number[]>();
+  const [result, setResult] = useState<number[]>([-1, -1]);
   useEffect(() => {
     setResult(algorithm(arr, target));
   }, [arr, target]);
@@ -31,34 +31,62 @@ function App() {
     console.log(index);
   };
 
-  const addNode = () => {
+  const pushNode = () => {
     setArray((value) => [...value, 0]);
   };
+  const popNode = () => {
+    setArray((value) => {
+      value.pop();
+      return [...value];
+    });
+  };
   return (
-    <div className="m-10 text-center">
+    <div className="my-10 text-center">
       <p>
-        Two Sum with
+        Two Sum with target:
         {
           <input
             type="number"
-            className="border-solid border-2 border-sky-500"
+            className="border-solid border-2 rounded border-sky-500 h-14 min-w-14 max-w-14 mx-1 mb-auto"
+            placeholder="0"
             onChange={(e) => setTarget(Number(e.target.value))}
           />
         }
-        : {result?.toString()}
       </p>
-      <div style={{ display: "flex" }}>
+      <div className="justify-center lg:m-16 m-1 grid lg:grid-cols-12 md:grid-cols-5 grid-cols-4">
         {arr.map((_, index) => (
-          <ArrayElement key={index} index={index} onChange={onChange} />
+          <span key={index}>
+            <span>{index}</span>
+            <ArrayElement
+              conditionalClass={` ${
+                result[0] == index || result[1] == index
+                  ? "bg-lime-100"
+                  : "text-black"
+              }`}
+              index={index}
+              onChange={onChange}
+            />
+          </span>
         ))}
       </div>
-
       <button
-        className="border border-gray-800 bg-gray-900 text-white"
-        onClick={addNode}
+        className="border border-gray-800 rounded bg-gray-900 text-white h-10 w-10 mb-auto mx-1"
+        onClick={pushNode}
       >
         +
       </button>
+      <button
+        className="border border-gray-800 rounded bg-gray-900 text-white h-10 w-10 mb-auto mx-1"
+        onClick={popNode}
+      >
+        -
+      </button>
+      <div className="mt-5 text-2xl">
+        Result: {arr[result[0]]} at{" "}
+        <span className="italic text-sm">[{result[0]}]</span> and{" "}
+        {arr[result[1]]} at{" "}
+        <span className="italic text-sm">[{result[1]}]</span> equals target.
+      </div>
     </div>
   );
 }
