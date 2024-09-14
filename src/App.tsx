@@ -17,7 +17,7 @@ function algorithm(nums: number[], target: number): number[] {
 function App() {
   const [arr, setArray] = useState<number[]>([0, 0]);
   const [target, setTarget] = useState<number>(0);
-  const [result, setResult] = useState<number[]>([-1, -1]);
+  const [result, setResult] = useState<number[]>([0, 0]);
   useEffect(() => {
     setResult(algorithm(arr, target));
   }, [arr, target]);
@@ -81,12 +81,19 @@ function App() {
       >
         -
       </button>
-      <div className="mt-5 text-2xl">
-        Result: {arr[result[0]]} at{" "}
-        <span className="italic text-sm">[{result[0]}]</span> and{" "}
-        {arr[result[1]]} at{" "}
-        <span className="italic text-sm">[{result[1]}]</span> equals target.
-      </div>
+      {result[0] === -1 || result[1] === -1 ? (
+        <div className="mt-5 text-2xl">
+          Result: No elements sum to given target
+        </div>
+      ) : (
+        <div className="mt-5 text-2xl">
+          Result:
+          <span className="font-bold text-lime-600"> {arr[result[0]]}</span> at{" "}
+          <span className="italic text-sm">[{result[0]}]</span> and{" "}
+          <span className="font-bold text-lime-600">{arr[result[1]]}</span> at{" "}
+          <span className="italic text-sm">[{result[1]}]</span> equals target.
+        </div>
+      )}
     </div>
   );
 }
