@@ -41,60 +41,74 @@ function App() {
     });
   };
   return (
-    <div className="my-10 text-center">
-      <p>
-        Two Sum with target:
-        {
-          <input
-            type="number"
-            className="border-solid border-2 rounded border-sky-500 h-14 min-w-14 max-w-14 mx-1 mb-auto"
-            placeholder="0"
-            onChange={(e) => setTarget(Number(e.target.value))}
-          />
-        }
-      </p>
-      <div className="justify-center lg:m-16 m-1 grid lg:grid-cols-12 md:grid-cols-5 grid-cols-4">
-        {arr.map((_, index) => (
-          <span key={index}>
-            <span>{index}</span>
-            <ArrayElement
-              conditionalClass={` ${
-                result[0] == index || result[1] == index
-                  ? "bg-lime-100"
-                  : "text-black"
-              }`}
-              index={index}
-              onChange={onChange}
-            />
-          </span>
-        ))}
+    <>
+      <div className="m-2">
+        two sum visualized, <br /> build by - {""}
+        <a
+          href="https://github.com/gorvk"
+          className="underline font-bold text-violet-400"
+        >
+          gorvk
+        </a>
       </div>
-      <button
-        className="border border-gray-800 rounded bg-gray-900 text-white h-10 w-10 mb-auto mx-1"
-        onClick={pushNode}
-      >
-        +
-      </button>
-      <button
-        className="border border-gray-800 rounded bg-gray-900 text-white h-10 w-10 mb-auto mx-1"
-        onClick={popNode}
-      >
-        -
-      </button>
-      {result[0] === -1 || result[1] === -1 ? (
-        <div className="mt-5 text-2xl">
-          Result: No elements sum to given target
+      <div className="my-10 text-center">
+        <p>
+          Two Sum with target:
+          {
+            <input
+              type="number"
+              className="border-solid border-2 rounded border-sky-500 h-14 min-w-14 max-w-14 mx-1 mb-auto"
+              placeholder="0"
+              onChange={(e) => setTarget(Number(e.target.value))}
+            />
+          }
+        </p>
+        <div className="justify-center h-64 xl:h-full overflow-y-auto my-16 lg:mx-16 mx-1 grid lg:grid-cols-12 md:grid-cols-5 grid-cols-4">
+          {arr.map((_, index) => (
+            <span key={index}>
+              <span>{index}</span>
+              <ArrayElement
+                conditionalClass={` ${
+                  result[0] == index || result[1] == index
+                    ? "bg-lime-100"
+                    : "text-black"
+                }`}
+                index={index}
+                onChange={onChange}
+              />
+            </span>
+          ))}
         </div>
-      ) : (
-        <div className="mt-5 text-2xl">
-          Result:
-          <span className="font-bold text-lime-600"> {arr[result[0]]}</span> at{" "}
-          <span className="italic text-sm">[{result[0]}]</span> and{" "}
-          <span className="font-bold text-lime-600">{arr[result[1]]}</span> at{" "}
-          <span className="italic text-sm">[{result[1]}]</span> equals target.
-        </div>
-      )}
-    </div>
+        <button
+          className="border border-gray-800 rounded bg-gray-900 text-white h-10 w-10 mb-auto mx-1"
+          onClick={pushNode}
+        >
+          +
+        </button>
+        <button
+          className="border border-gray-800 rounded bg-gray-900 text-white h-10 w-10 mb-auto mx-1"
+          onClick={popNode}
+        >
+          -
+        </button>
+        {result[0] === -1 || result[1] === -1 ? (
+          <div className="mt-5 text-2xl">
+            Result: No elements sum to given target
+          </div>
+        ) : (
+          <div className="mt-5 text-2xl">
+            Result:
+            <span className="font-bold text-lime-600">
+              {" "}
+              {arr[result[0]]}
+            </span>{" "}
+            at <span className="italic text-sm">[{result[0]}]</span> and{" "}
+            <span className="font-bold text-lime-600">{arr[result[1]]}</span> at{" "}
+            <span className="italic text-sm">[{result[1]}]</span> equals target.
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
